@@ -54,14 +54,17 @@ public class Validator {
 	}
 
 	public boolean isDomain() {
-		Pattern patron = Pattern.compile("([a-zA-Z][a-zA-Z\\d-]{61}[a-zA-Z\\d].)+");
+		Pattern patron = Pattern.compile("([a-zA-Z][-\\da-zA-Z]{0,61}[\\da-zA-Z][.]){2,63}");
 		Matcher cumple = patron.matcher(cadena);
 		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isEmail() {
-		return false;
+		Pattern patron = Pattern.compile("[[\\w.]*[\\w]+]@[\\w.][[\\w.]*[\\w]+]");
+		Matcher cumple = patron.matcher(cadena);
+		boolean resultado = cumple.matches();
+		return resultado;
 	}
 
 	public boolean isIdentifier() {

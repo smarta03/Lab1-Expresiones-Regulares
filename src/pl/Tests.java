@@ -254,5 +254,102 @@ public class Tests {
 		assertEquals(validator.getResultados().get(3), false);
 		assertEquals(validator.getResultados().get(4), false);
 	}
+	
+	@Test
+	public void isDOMINIO1() {
+		entrada = "xx3.lcs.mit.edu";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), true);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void isDOMINIO2() {
+		entrada = "ingenierias.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), true);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void isDOMINIO3() {
+		entrada = "SRI-NIC.ARPA";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), true);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notDOMINIO_sinPunto() {
+		entrada = "SRI-NIC";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notDOMINIO_firstNum() {
+		entrada = "1ngenierias.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notDOMINIO_firstGuion() {
+		entrada = "-ngenierias.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notDOMINIO_guinFin() {
+		entrada = "1ngenieria-.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notDOMINIO_caracterEspecial() {
+		entrada = "1ngenie*ias.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+
 
 }
