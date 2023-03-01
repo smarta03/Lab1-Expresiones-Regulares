@@ -40,19 +40,24 @@ public class Validator {
 		// pero si metes mas de 7 la da como valida y esta mal
 		Pattern patron = Pattern.compile("[0-9XYZ]\\d{7}[a-h,j-n,p-t,v-z,A-H,J-N,P-T,V-Z]");
 		Matcher cumple = patron.matcher(cadena);
-		boolean resultado = cumple.find();
+		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isFloat() {
-		Pattern patron = Pattern.compile("[+-]?\\d*[.][[eE][[+-]?[0-9]*]?]");
+		//[+-]?\\d*[.][[eE][[+-]?[0-9]*]?]
+		//[+-]?[0-9]*[.]([eE][+-]?[0-9]*)?
+		Pattern patron = Pattern.compile("[+-]?\\d*[.]\\d*([eE][+-]?[0-9]*)?");
 		Matcher cumple = patron.matcher(cadena);
-		boolean resultado = cumple.find();
+		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isDomain() {
-		return false;
+		Pattern patron = Pattern.compile("([a-zA-Z][a-zA-Z\\d-]{61}[a-zA-Z\\d].)+");
+		Matcher cumple = patron.matcher(cadena);
+		boolean resultado = cumple.matches();
+		return resultado;
 	}
 
 	public boolean isEmail() {
