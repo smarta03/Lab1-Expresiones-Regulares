@@ -1,3 +1,4 @@
+package pl;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,11 @@ public class Validator {
 		cadena = c;
 		resultados = new ArrayList<Boolean>();
 		validar();
+	}
+	
+	public Validator() {
+		cadena = "";
+		resultados = new ArrayList<Boolean>();
 	}
 
 	public String getCadena() {
