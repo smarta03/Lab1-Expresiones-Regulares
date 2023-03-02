@@ -1,3 +1,48 @@
+/*
+ * Sergio Martínez Agüero 71529484J
+ * Procesadres de Lenguaje
+ * 2022-2023 - Universidad de León
+ * 
+ * EXPRESIONES REGULARES UTILIZADAS
+ * 
+ * 1. DNI_NIE:
+ * 		[0-9XYZ]: la cadena debe comenzar por un digito o X o Y o Z.
+ * 		\\d{7}: seguido de siete digitos, ya que el primero ya se contabilizo.
+ * 		[a-h,j-n,p-t,v-z,A-H,J-N,P-T,V-Z]: termina con el conjunto de letras especificado, ya sean mayusculas o minusculas.
+ * 
+ * 2. FLOAT:
+ * 		[+-]?: la cadena puede comenzar con un mas o un menos o ninguno de los dos.
+ * 		\\d*: seguido de 0 o indeterminados dígitos.
+ * 		\\.: seguido del simbolo punto.
+ * 		\\d*: seguido de 0 o indeterminados dígitos.
+ * 		([eE][+-]?[0-9]*)?: seguido o no de: e, simbolo de mas o menos o ninguno, 0 o indeterminados dígitos. 
+ * 
+ * 3. DOMINIO:
+ * 		(
+ * 		[a-zA-Z]: la cadena comienza por una letra ya sea mayuscula o minuscula.
+ * 		[a-zA-Z\\d-]*: seguido o no de: una letra mayuscula o minuscula o un digito o un guion medio, todo ello puede repetirse indeterminadamente.
+ * 		[a-zA-Z\\d]: seguido de una letra mayuscula o minuscula o un digito.
+ * 		\\.: seguido del caracter punto.
+ * 		)+: todo lo anterior puede aparacer de una a indeterminadas veces.
+ * 		[a-zA-Z]: seguido de una letra ya sea mayuscula o minuscula.
+ * 		[a-zA-Z\\d-]*:seguido o no de: una letra mayuscula o minuscula o un digito o un guion medio, todo ello puede repetirse indeterminadamente.
+ * 		[a-zA-Z\\d]: termina con una letra mayuscula o minuscula o un digito.
+ * 
+ * 4. EMAIL:
+ * 		[\\w\\.+-]+: la cadena comienza con una letra mayúscula o minúscula, un dígito o el carácter _. Esto puede repetirse indeterminadas veces.
+ * 		@: seguido del caracter @.
+ * 		(
+ * 		[a-zA-Z0-9-]+: seguido una letra mayúscula o minúscula, un dígito o guión medio. Esto puede repetirse indeterminadas veces.
+ * 		\\.: seguido del caracter punto.
+ * 		)+: este bloque anterior puede repetirse una o indeterminadas veces.
+ * 		[a-zA-Z]{2,}: seguido de al menos de dos o indeterminadas letras mayusculas o minusculas.
+ * 
+ * 5. IDENTIFICADOR:
+ * 		[a-zA-Z_]: la cadena comienza con una letra mayúscula o minúscula o el carácter _.
+ * 		[\\w]*: seguido o no de una letra mayúscula o minúscula, un dígito o el carácter _. Esto puede repetirse indeterminadas veces.
+ * 
+ */
+
 package pl;
 import static org.junit.Assert.*;
 
@@ -53,7 +98,7 @@ public class Tests {
 	}
 	
 	@Test
-	public void isNIE() {
+	public void isNIE_and_isIDENTIFIER() {
 		entrada = "Y7965543P";
 		validator.setCadena(entrada);
 		validator.validar();
@@ -61,7 +106,7 @@ public class Tests {
 		assertEquals(validator.getResultados().get(1), false);
 		assertEquals(validator.getResultados().get(2), false);
 		assertEquals(validator.getResultados().get(3), false);
-		assertEquals(validator.getResultados().get(4), false);
+		assertEquals(validator.getResultados().get(4), true);
 	}
 	
 	@Test
@@ -124,7 +169,7 @@ public class Tests {
 	}
 	
 	@Test
-	public void notNIE_letra() {
+	public void notNIE_letra_and_isIDENTIFIER() {
 		entrada = "K3840293P";
 		validator.setCadena(entrada);
 		validator.validar();
@@ -132,11 +177,11 @@ public class Tests {
 		assertEquals(validator.getResultados().get(1), false);
 		assertEquals(validator.getResultados().get(2), false);
 		assertEquals(validator.getResultados().get(3), false);
-		assertEquals(validator.getResultados().get(4), false);
+		assertEquals(validator.getResultados().get(4), true);
 	}
 	
 	@Test
-	public void notNIE_masNumeros() {
+	public void notNIE_masNumeros_and_isIDENTIFIER() {
 		entrada = "K38402913P";
 		validator.setCadena(entrada);
 		validator.validar();
@@ -144,11 +189,11 @@ public class Tests {
 		assertEquals(validator.getResultados().get(1), false);
 		assertEquals(validator.getResultados().get(2), false);
 		assertEquals(validator.getResultados().get(3), false);
-		assertEquals(validator.getResultados().get(4), false);
+		assertEquals(validator.getResultados().get(4), true);
 	}
 	
 	@Test
-	public void notNIE_menosNumeros() {
+	public void notNIE_menosNumeros_and_isIDENTIFIER() {
 		entrada = "K384023P";
 		validator.setCadena(entrada);
 		validator.validar();
@@ -156,7 +201,7 @@ public class Tests {
 		assertEquals(validator.getResultados().get(1), false);
 		assertEquals(validator.getResultados().get(2), false);
 		assertEquals(validator.getResultados().get(3), false);
-		assertEquals(validator.getResultados().get(4), false);
+		assertEquals(validator.getResultados().get(4), true);
 	}
 	
 	@Test
@@ -243,7 +288,6 @@ public class Tests {
 		assertEquals(validator.getResultados().get(4), false);
 	}
 
-	
 	@Test
 	public void isDOMINIO1() {
 		entrada = "xx3.lcs.mit.edu";
@@ -403,6 +447,79 @@ public class Tests {
 	@Test
 	public void notEMAIL4() {
 		entrada = "correo.buzon@estudiantes..es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void isIDENTIFIER1() {
+		entrada = "variable1"
+				+ "";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), true);
+	}
+	
+	@Test
+	public void isIDENTIFIER2() {
+		entrada = "SUMatorio";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), true);
+	}
+	
+	@Test
+	public void isIDENTIFIER3() {
+		entrada = "_acumulador";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), true);
+	}
+	
+	@Test
+	public void isIDENTIFIER4() {
+		entrada = "x";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), true);
+	}
+	
+	@Test
+	public void isIDENTIFIER5() {
+		entrada = "a1";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), true);
+	}
+	
+	@Test
+	public void notIDENTIFIER() {
+		entrada = "1variable";
 		validator.setCadena(entrada);
 		validator.validar();
 		assertEquals(validator.getResultados().get(0), false);
