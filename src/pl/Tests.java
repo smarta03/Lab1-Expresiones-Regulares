@@ -458,8 +458,7 @@ public class Tests {
 	
 	@Test
 	public void isIDENTIFIER1() {
-		entrada = "variable1"
-				+ "";
+		entrada = "variable1";
 		validator.setCadena(entrada);
 		validator.validar();
 		assertEquals(validator.getResultados().get(0), false);

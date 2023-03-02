@@ -48,13 +48,25 @@ package pl;
 
 import java.util.regex.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String cadena = "X7965543P";
-		Validator v = new Validator(cadena);
-		System.out.println(v.printResults());
+		
+		Scanner scanner = new Scanner(System.in);
+		String entrada = "";
+		
+		System.out.println("Introduce 0 para salir");
+		
+		while (entrada.compareTo("0")!=0) {
+			System.out.println("Introduce una cadena:");
+			
+			entrada = scanner.nextLine();
+			if (entrada.compareTo("0")!=0) {
+				Validator v = new Validator(entrada);
+			System.out.println(v.printResults());
+			}
+		}
 	}
 }

@@ -46,6 +46,8 @@
 package pl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -154,11 +156,11 @@ public class Validator {
 				}
 			}
 		}
-		
-		result.setLength(result.length()-1);
 
 		if (result.length() == 1) {
 			result.append("Cadena de caracteres no identificada");
+		} else {
+			result.setLength(result.length()-1);
 		}
 		result.append(")\n");
 		return result.toString();
