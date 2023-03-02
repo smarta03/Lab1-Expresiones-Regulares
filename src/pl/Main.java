@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String cadena = "sergio@estudiantes.es";
+		String cadena = "sergiomartinez@gmail.ule.com";
 		Validator v = new Validator(cadena);
 		System.out.println(v.printResults());
 	}

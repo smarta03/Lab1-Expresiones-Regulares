@@ -1,4 +1,5 @@
 package pl;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ public class Validator {
 		resultados = new ArrayList<Boolean>();
 		validar();
 	}
-	
+
 	public Validator() {
 		cadena = "";
 		resultados = new ArrayList<Boolean>();
@@ -45,30 +46,31 @@ public class Validator {
 	}
 
 	public boolean isFloat() {
-		//[+-]?\\d*[.][[eE][[+-]?[0-9]*]?]
-		//[+-]?[0-9]*[.]([eE][+-]?[0-9]*)?
-		Pattern patron = Pattern.compile("[+-]?\\d*[.]\\d*([eE][+-]?[0-9]*)?");
+		Pattern patron = Pattern.compile("[+-]?\\d*\\.\\d*([eE][+-]?[0-9]*)?");
 		Matcher cumple = patron.matcher(cadena);
 		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isDomain() {
-		Pattern patron = Pattern.compile("([a-zA-Z][-\\da-zA-Z]{0,61}[\\da-zA-Z][.]){2,63}");
+		Pattern patron = Pattern.compile("([a-zA-Z][a-zA-Z\\d-]*[a-zA-Z\\d]\\.)+[a-zA-Z][a-zA-Z\\d-]*[a-zA-Z\\d]");
 		Matcher cumple = patron.matcher(cadena);
 		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isEmail() {
-		Pattern patron = Pattern.compile("[[\\w.]*[\\w]+]@[\\w.][[\\w.]*[\\w]+]");
+		Pattern patron = Pattern.compile("[\\w\\.+-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}");
 		Matcher cumple = patron.matcher(cadena);
 		boolean resultado = cumple.matches();
 		return resultado;
 	}
 
 	public boolean isIdentifier() {
-		return false;
+		Pattern patron = Pattern.compile("");
+		Matcher cumple = patron.matcher(cadena);
+		boolean resultado = cumple.matches();
+		return resultado;
 	}
 
 	public void validar() {
@@ -81,34 +83,39 @@ public class Validator {
 
 	public String printResults() {
 		StringBuffer result = new StringBuffer();
+		result.append("(");
 		for (int i = 0; i < 5; i++) {
 			if (resultados.get(i) == true) {
 				// Hacer un swith que dependindo del valor de i escriba si es DNI, float, ...
 				switch (i) {
 				case 0: {
-					result.append("DNI_NIE\n");
+					result.append("DNI_NIE");
 					break;
 				}
 				case 1: {
-					result.append("FLOAT\n");
+					result.append("FLOAT");
 					break;
 				}
 				case 2: {
-					result.append("DOMINIO\n");
+					result.append("DOMINIO");
 					break;
 				}
 				case 3: {
-					result.append("EMAIL\n");
+					result.append("EMAIL");
 					break;
 				}
 				case 4: {
-					result.append("IDENTIFICADOR\n");
+					result.append("DENTIFICADOR");
 					break;
 				}
-
 				}
 			}
 		}
+		
+		if(result.length()==1) {
+			result.append("Cadena de caracteres no identificada");
+		}
+		result.append(")\n");
 		return result.toString();
 	}
 

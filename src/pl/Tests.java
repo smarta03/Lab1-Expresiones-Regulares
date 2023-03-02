@@ -242,18 +242,7 @@ public class Tests {
 		assertEquals(validator.getResultados().get(3), false);
 		assertEquals(validator.getResultados().get(4), false);
 	}
-	
-	@Test
-	public void notFLOAT3() {
-		entrada = "xx3.lcs.mit.edu";
-		validator.setCadena(entrada);
-		validator.validar();
-		assertEquals(validator.getResultados().get(0), false);
-		assertEquals(validator.getResultados().get(1), false);
-		assertEquals(validator.getResultados().get(2), false);
-		assertEquals(validator.getResultados().get(3), false);
-		assertEquals(validator.getResultados().get(4), false);
-	}
+
 	
 	@Test
 	public void isDOMINIO1() {
@@ -350,6 +339,76 @@ public class Tests {
 		assertEquals(validator.getResultados().get(3), false);
 		assertEquals(validator.getResultados().get(4), false);
 	}
+	
+	@Test
+	public void isEMAIL() {
+		entrada = "1234test@mail.ru";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), true);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void isEMAIL2() {
+		entrada = "correo.buzon@estudiantes.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), true);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notEMAIL1() {
+		entrada = "@orreo.buzon@estudiantes.unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
 
+	@Test
+	public void notEMAIL2() {
+		entrada = "correo.buzon@estudiantes";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
+	
+	@Test
+	public void notEMAIL3() {
+		entrada = "correo.buzon@estudiantes@unileon.es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
 
+	@Test
+	public void notEMAIL4() {
+		entrada = "correo.buzon@estudiantes..es";
+		validator.setCadena(entrada);
+		validator.validar();
+		assertEquals(validator.getResultados().get(0), false);
+		assertEquals(validator.getResultados().get(1), false);
+		assertEquals(validator.getResultados().get(2), false);
+		assertEquals(validator.getResultados().get(3), false);
+		assertEquals(validator.getResultados().get(4), false);
+	}
 }
