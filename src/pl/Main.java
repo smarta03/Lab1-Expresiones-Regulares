@@ -46,8 +46,6 @@
 
 package pl;
 
-import java.util.regex.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {

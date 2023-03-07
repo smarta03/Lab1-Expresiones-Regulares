@@ -43,6 +43,7 @@
  * 
  */
 
+
 package pl;
 import static org.junit.Assert.*;
 
