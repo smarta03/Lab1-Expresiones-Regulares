@@ -1,3 +1,5 @@
+
+SERGIO MARTINEZ AGUERO 71529484J
 Las cadenas de entrada para los test del fichero \src\pl\Tests.java y los resultados obtenidos son:
 
 73890072A - (DNI_NIE)
